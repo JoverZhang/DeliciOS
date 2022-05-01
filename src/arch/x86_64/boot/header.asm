@@ -1,3 +1,6 @@
+; SPDX-License-Identifier: GPL-2.0-only
+
+; set multiboot section
 section .multiboot_header
 header_start:
   ; multiboot2 magic number
