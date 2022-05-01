@@ -1,5 +1,7 @@
 # DeliciOS
 
+[[中文]](./README.zh.md)
+
 DeliciOS (homonym "delicious") is a simple 64-bit Operating System kernel written by C11.
 
 Its Bootloader uses GRUB, and it already has some basic kernel features:
@@ -23,6 +25,15 @@ I hope it can support earlier versions of Shell and GCC. (like a modern Linux 0.
 And in the end, We will refactor it. Write all core code in the stupidest (simplest) way.
 
 I hope to help some lost person who loves the operating system (such as me).
+
+# Acknowledgement
+
+- [Linux](https://github.com/torvalds/linux)
+- [SynestiaOS](https://github.com/SynestiaOS/SynestiaOS)
+- [Simple-XX/SimpleKernel](https://github.com/Simple-XX/SimpleKernel)
+- [xinu-os/xinu](https://github.com/xinu-os/xinu)
+- [pritamzope/OS](https://github.com/pritamzope/OS)
+- To be added...(too much)
 
 # License
 

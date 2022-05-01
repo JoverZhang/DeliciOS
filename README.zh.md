@@ -20,6 +20,15 @@ DeliciOS (谐音 "delicious") 是一个使用 C11 编写的简单的 64-bit 操�
 
 最终我希望能够支持早期版本的 Shell 和 GCC. (就像是一个现代的 Linux 0.01)
 
+# 致谢
+
+- [Linux](https://github.com/torvalds/linux)
+- [SynestiaOS](https://github.com/SynestiaOS/SynestiaOS)
+- [Simple-XX/SimpleKernel](https://github.com/Simple-XX/SimpleKernel)
+- [xinu-os/xinu](https://github.com/xinu-os/xinu)
+- [pritamzope/OS](https://github.com/pritamzope/OS)
+- 待整理...(有点多)
+
 # License
 
 GNU General Public License, version 2
