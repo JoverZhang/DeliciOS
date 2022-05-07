@@ -76,7 +76,7 @@ x86_64.iso: x86_64
 	$(GRUB) -o $(TARGET_ISO) $(ISO_DIR)
 	sync
 
-run: clean all
+run: clean x86_64.iso
 	qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 
 clean:
