@@ -38,6 +38,36 @@ make x86_64.iso
 qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 ```
 
+然后你能够看到:
+
+![](./Documentation/resources/welcome_to_deliciOS.png)
+
+# Playing
+
+### 启动 DeliciOS
+
+![](./Documentation/resources/boot.gif)
+
+### 运行多进程程序
+
+代码
+
+![](./Documentation/resources/multiprocess_code.png)
+
+画面
+
+![](./Documentation/resources/multiprocess_screen.png)
+
+### 异常处理
+
+代码
+
+![](./Documentation/resources/division_by_zero_code.png)
+
+画面
+
+![](./Documentation/resources/division_by_zero_screen.png)
+
 # Future
 
 最终我希望能够支持早期版本的 Shell 和 GCC. (就像是一个现代的 Linux 0.01)

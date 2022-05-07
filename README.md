@@ -40,6 +40,36 @@ When the `kernel.iso` has been built. Use following command to run Qemu.
 qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 ```
 
+Then you can see:
+
+![](./Documentation/resources/welcome_to_deliciOS.png)
+
+# Playing
+
+### Boot DeliciOS
+
+![](./Documentation/resources/boot.gif)
+
+### Run the Multiprocess Program
+
+code
+
+![](./Documentation/resources/multiprocess_code.png)
+
+screen
+
+![](./Documentation/resources/multiprocess_screen.png)
+
+### Exception Handler
+
+code
+
+![](./Documentation/resources/division_by_zero_code.png)
+
+screen
+
+![](./Documentation/resources/division_by_zero_screen.png)
+
 # Future
 
 I hope it can support earlier versions of Shell and GCC. (like a modern Linux 0.01)
