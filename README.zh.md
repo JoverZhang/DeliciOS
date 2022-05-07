@@ -16,6 +16,28 @@ DeliciOS (谐音 "delicious") 是一个使用 C11 编写的简单的 64-bit 操�
 - 文件系统 (也许是 VFS)
 - Socket (TCP)
 
+# Building DeliciOS
+
+可以在 64-bit 的 Linux 或 MacOS 上编译 DeliciOS。
+
+运行以下命令来构建 `kernel.iso`。
+
+```shell
+make
+```
+
+or
+
+```shell
+make x86_64.iso
+```
+
+当 `kernel.iso` 已经构建成功。使用以下命令运行 Qemu。
+
+```shell
+qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
+```
+
 # Future
 
 最终我希望能够支持早期版本的 Shell 和 GCC. (就像是一个现代的 Linux 0.01)

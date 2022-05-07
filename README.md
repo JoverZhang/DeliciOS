@@ -18,6 +18,28 @@ Following the principle of "just for fun", I think it also needs the following f
 - File System (maybe VFS)
 - Socket (TCP)
 
+# Building DeliciOS
+
+DeliciOS can be compiled on 64-bit Linux or MacOS.
+
+Run following command to build the `kernel.iso`. 
+
+```shell
+make
+```
+
+or
+
+```shell
+make x86_64.iso
+```
+
+When the `kernel.iso` has been built. Use following command to run Qemu.
+
+```shell
+qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
+```
+
 # Future
 
 I hope it can support earlier versions of Shell and GCC. (like a modern Linux 0.01)
