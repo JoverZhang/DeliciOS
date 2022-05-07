@@ -61,7 +61,8 @@ $(USER_OBJ) : $(OUT)/user/%.o : $(SRC)/user/%.c
 
 
 
-.PHONY: x86_64 x86_64.iso all run clean
+.DEFAULT_GOAL := x86_64.iso
+.PHONY: x86_64 x86_64.iso run clean
 
 x86_64: $(OBJS)
 	mkdir -p $(dir $(TARGET))
@@ -74,8 +75,6 @@ x86_64.iso: x86_64
 	mv $(TARGET) $(ISO_DIR)/boot/
 	$(GRUB) -o $(TARGET_ISO) $(ISO_DIR)
 	sync
-
-all: x86_64.iso
 
 run: clean all
 	qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
