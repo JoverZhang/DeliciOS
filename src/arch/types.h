@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <limits.h>
 #include "lib/compiler.h"
 
 #define PAGE_SIZE 4096
