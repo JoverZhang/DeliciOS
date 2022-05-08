@@ -6,20 +6,9 @@
 #include "lib/priority_queue.h"
 #include "mm/mm.h"
 
-#define DEFAULT_STACK     0x2000000
-#define DEFAULT_PRIORITY  100
-
-// this is first task
-Task boot_task = {
-    .pid = 1,
-    .counter = DEFAULT_PRIORITY,
-    .priority = DEFAULT_PRIORITY,
-    .state = TASK_RUNNING,
-    .stack = DEFAULT_STACK,
-    .ts.rbp = DEFAULT_STACK,
-    .ts.rsp = DEFAULT_STACK,
-    .ts.rip = 0,
-};
+#define DEFAULT_STACK   0x2000000
+#define DEFAULT_NICE    0
+#define MAX_VRUNTIME    (LLONG_MAX - sched_prio_to_weight[0]) /* prevent overflow */
 
 // task node use for task queue.
 // and pointer to current task (like linux)
@@ -75,27 +64,28 @@ PRIORITY_QUEUE(TaskQueue, TaskNode, NR_TASKS, task_node_cmp) task_queue;
 
 // This is a very simple scheduler function.
 // Its average time complexity is O(logN),
-// because it uses "big-endian heap" for task index.
+// because it uses "little-endian heap" store tasks.
 public void schedule(Registers *reg) {
   Task *prev = current;
-  // decrease counter of current process
-  prev->counter--;
 
-  // recalculate priority of process counter
+  // first, increase vruntime of current process.
+  // then recalculate priority of processes.  ---  O(logN)
+  // like CFS (but just very little -_-)
+  prev->vruntime += prev->static_prio;
   remove_at(&task_queue, current_node->index);
   offer(&task_queue, current_node);
 
-  // get first task (maximum counter in the queue)
+  // get first task (minimum vruntime in the queue)
   TaskNode *next_n = peek(&task_queue);
   Task *next = next_n->task;
 
-  // reset all tasks counter when the counter is used up.
-  // copy from linux 0.11
-  if (!next->counter) {
+  // reset all tasks vruntime when they reach the limit.
+  // once in a long time.  ---  O(N)
+  // some like Linux 0.11
+  if (next->vruntime >= MAX_VRUNTIME) {
     for (i32 i = 0; i < task_queue.size; i++) {
-      TaskNode *node = task_queue.queue[i];
-      Task *p = node->task;
-      p->counter = (p->counter >> 1) + p->priority;
+      Task *task = task_queue.queue[i]->task;
+      task->vruntime = 0;
     }
   }
 
@@ -126,7 +116,7 @@ public void wakeup_process(Task *task) {
 public void task_print(Task *t) {
   printk("===print task===\n");
   printk("pid: %u, state: %d\n", t->pid, t->state);
-  printk("counter: %u, priority: %d\n", t->counter, t->priority);
+  printk("vruntime: %u, static_prio: %d\n", t->vruntime, t->static_prio);
   printk("stack_start: 0x%08x, rip: 0x%08x\n", t->stack, t->ts.rip);
   printk("rax: 0x%08x, rcx: 0x%08x, rdx: 0x%08x, rbx: 0x%08x\n",
          t->ts.rax, t->ts.rcx, t->ts.rdx, t->ts.rbx);
@@ -140,13 +130,24 @@ public Task *get_current() {
 }
 
 public void sched_init(void) {
+  // create first task (boot task)
   current_node = (TaskNode *) kmalloc(sizeof(TaskNode));
-  current_node->task = &boot_task;
+  current_node->task = (Task *) kmalloc(sizeof(Task));
+  *current_node->task = (Task) {
+      .pid = 1,
+      .state = TASK_RUNNING,
+      .static_prio = sched_prio_to_weight[DEFAULT_NICE + 20],
+      .vruntime = 0,
+      .stack = DEFAULT_STACK,
+      .ts.rbp = DEFAULT_STACK,
+      .ts.rsp = DEFAULT_STACK,
+      .ts.rip = 0,
+  };
   offer(&task_queue, current_node);
 }
 
 static i32 task_node_cmp(TaskNode *a, TaskNode *b) {
-  if (a->task->counter < b->task->counter) return 1;
-  else if (a->task->counter > b->task->counter) return -1;
+  if (a->task->vruntime < b->task->vruntime) return -1;
+  else if (a->task->vruntime > b->task->vruntime) return 1;
   return 0;
 }

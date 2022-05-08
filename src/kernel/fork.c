@@ -21,7 +21,6 @@ public int sys_fork(Registers *reg) {
   p->stack += TASK_STACK;
 
   p->pid = last_pid++;
-  p->counter = p->priority;
   p->state = TASK_RUNNING;
   p->ts.rip = reg->rip;
   p->ts.rax = 0;            // return 0 in child process

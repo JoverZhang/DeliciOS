@@ -13,8 +13,8 @@
 typedef struct Task {
   i32 pid;
   i32 state;    // -1 unrunnable, 0 runnable, >0 stopped
-  i32 counter;
-  i32 priority;
+  i64 vruntime;
+  i32 static_prio;
 // mm
   u64 stack;
 // context
