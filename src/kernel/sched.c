@@ -23,25 +23,25 @@ PRIORITY_QUEUE(TaskQueue, TaskNode, NR_TASKS, task_node_cmp) task_queue;
  * TODO(jover): process switching using kernel stack
  *   The following code is so bad.
  */
-#define switch_to(next) do {        \
+#define switch_to(prev, next) do {  \
   /* save context */                \
-  prev->ts.rax = reg->rax;          \
-  prev->ts.rcx = reg->rcx;          \
-  prev->ts.rdx = reg->rdx;          \
-  prev->ts.rbx = reg->rbx;          \
-  prev->ts.rsi = reg->rsi;          \
-  prev->ts.rdi = reg->rdi;          \
-  prev->ts.rip = reg->rip;          \
-  prev->ts.rbp = reg->rbp;          \
-  prev->ts.rsp = reg->user_rsp;     \
-  prev->ts.r8 = reg->r8;            \
-  prev->ts.r9 = reg->r9;            \
-  prev->ts.r10 = reg->r10;          \
-  prev->ts.r11 = reg->r11;          \
-  prev->ts.r12 = reg->r12;          \
-  prev->ts.r13 = reg->r13;          \
-  prev->ts.r14 = reg->r14;          \
-  prev->ts.r15 = reg->r15;          \
+  (prev)->ts.rax = reg->rax;        \
+  (prev)->ts.rcx = reg->rcx;        \
+  (prev)->ts.rdx = reg->rdx;        \
+  (prev)->ts.rbx = reg->rbx;        \
+  (prev)->ts.rsi = reg->rsi;        \
+  (prev)->ts.rdi = reg->rdi;        \
+  (prev)->ts.rip = reg->rip;        \
+  (prev)->ts.rbp = reg->rbp;        \
+  (prev)->ts.rsp = reg->user_rsp;   \
+  (prev)->ts.r8 = reg->r8;          \
+  (prev)->ts.r9 = reg->r9;          \
+  (prev)->ts.r10 = reg->r10;        \
+  (prev)->ts.r11 = reg->r11;        \
+  (prev)->ts.r12 = reg->r12;        \
+  (prev)->ts.r13 = reg->r13;        \
+  (prev)->ts.r14 = reg->r14;        \
+  (prev)->ts.r15 = reg->r15;        \
   /* change context */              \
   reg->rax = (next)->ts.rax;        \
   reg->rcx = (next)->ts.rcx;        \
@@ -92,7 +92,7 @@ public void schedule(Registers *reg) {
   if (next == prev) return;
 
   current_node = next_n;
-  switch_to(next);
+  switch_to(prev, next);
 }
 
 public int sys_pause(Registers *reg) {
