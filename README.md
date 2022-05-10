@@ -42,33 +42,70 @@ qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 
 Then you can see:
 
-![](./Documentation/resources/welcome_to_deliciOS.png)
+![welcome_to_deliciOS.png](./Documentation/resources/welcome_to_deliciOS.png)
 
 # Playing
 
 ### Boot DeliciOS
 
-![](./Documentation/resources/boot.gif)
+![boot.gif](./Documentation/resources/boot.gif)
 
 ### Run the Multiprocess Program
 
-code
+code:
 
-![](./Documentation/resources/multiprocess_code.png)
+```c
+// mock user program, it's written like the program on Linux.
+//
+// this is an example of multiprocess program.
+// ps: the "fork()" is "system call" of create a child process in kernel.
+static noreturn void mock_user_program() {
+  if (!fork()) {
+    if (!fork()) {
+      if (!fork()) {
+        while (1) {
+          console_set_foreground_color(CONSOLE_LIGHT_GREEN);
+          printf("[p4]: print d\n");
+          msleep(250);
+        }
+      }
+      while (1) {
+        console_set_foreground_color(CONSOLE_LIGHT_GRAY);
+        printf("[p3]: print c\n");
+        msleep(500);
+      }
+    }
+    while (1) {
+      console_set_foreground_color(CONSOLE_LIGHT_BLUE);
+      printf("[p2]: print b\n");
+      msleep(750);
+    }
+  }
+  while (1) {
+    console_set_foreground_color(CONSOLE_LIGHT_RED);
+    printf("[p1]: print a\n");
+    msleep(1000);
+  }
+}
+```
 
-screen
+console output:
 
-![](./Documentation/resources/multiprocess_screen.png)
+![multiprocess_screen.png](./Documentation/resources/multiprocess_screen.png)
 
 ### Exception Handler
 
-code
+code:
 
-![](./Documentation/resources/division_by_zero_code.png)
+```c
+printk("started kernel\n");
+// division by zero
+i32 a = 10 / (get_cs() >> 30);
+```
 
-screen
+console output:
 
-![](./Documentation/resources/division_by_zero_screen.png)
+![division_by_zero_screen.png](./Documentation/resources/division_by_zero_screen.png)
 
 # Future
 
@@ -79,6 +116,8 @@ And in the end, We will refactor it. Write all core code in the stupidest (simpl
 I hope to help some lost person who loves the operating system (such as me).
 
 # Acknowledgement
+
+###### no rank
 
 - [Linux](https://github.com/torvalds/linux)
 - [SynestiaOS](https://github.com/SynestiaOS/SynestiaOS)

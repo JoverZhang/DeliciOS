@@ -46,33 +46,78 @@ qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 
 ### 启动 DeliciOS
 
-![](./Documentation/resources/boot.gif)
+![welcome_to_deliciOS.png](./Documentation/resources/welcome_to_deliciOS.png)
 
-### 运行多进程程序
+# Playing
 
-代码
+### Boot DeliciOS
 
-![](./Documentation/resources/multiprocess_code.png)
+![boot.gif](./Documentation/resources/boot.gif)
 
-画面
+### Run the Multiprocess Program
 
-![](./Documentation/resources/multiprocess_screen.png)
+代码:
 
-### 异常处理
+```c
+// mock user program, it's written like the program on Linux.
+//
+// this is an example of multiprocess program.
+// ps: the "fork()" is "system call" of create a child process in kernel.
+static noreturn void mock_user_program() {
+  if (!fork()) {
+    if (!fork()) {
+      if (!fork()) {
+        while (1) {
+          console_set_foreground_color(CONSOLE_LIGHT_GREEN);
+          printf("[p4]: print d\n");
+          msleep(250);
+        }
+      }
+      while (1) {
+        console_set_foreground_color(CONSOLE_LIGHT_GRAY);
+        printf("[p3]: print c\n");
+        msleep(500);
+      }
+    }
+    while (1) {
+      console_set_foreground_color(CONSOLE_LIGHT_BLUE);
+      printf("[p2]: print b\n");
+      msleep(750);
+    }
+  }
+  while (1) {
+    console_set_foreground_color(CONSOLE_LIGHT_RED);
+    printf("[p1]: print a\n");
+    msleep(1000);
+  }
+}
+```
 
-代码
+控制台输出:
 
-![](./Documentation/resources/division_by_zero_code.png)
+![multiprocess_screen.png](./Documentation/resources/multiprocess_screen.png)
 
-画面
+### Exception Handler
 
-![](./Documentation/resources/division_by_zero_screen.png)
+代码:
+
+```c
+printk("started kernel\n");
+// division by zero
+i32 a = 10 / (get_cs() >> 30);
+```
+
+控制台输出:
+
+![division_by_zero_screen.png](./Documentation/resources/division_by_zero_screen.png)
 
 # Future
 
 最终我希望能够支持早期版本的 Shell 和 GCC. (就像是一个现代的 Linux 0.01)
 
 # 致谢
+
+###### 不分先后
 
 - [Linux](https://github.com/torvalds/linux)
 - [SynestiaOS](https://github.com/SynestiaOS/SynestiaOS)
