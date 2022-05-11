@@ -40,17 +40,11 @@ qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 
 然后你能够看到:
 
-![](./Documentation/resources/welcome_to_deliciOS.png)
-
-# Playing
-
-### 启动 DeliciOS
-
 ![welcome_to_deliciOS.png](./Documentation/resources/welcome_to_deliciOS.png)
 
 # Playing
 
-### Boot DeliciOS
+### 启动 DeliciOS
 
 ![boot.gif](./Documentation/resources/boot.gif)
 
