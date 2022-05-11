@@ -115,8 +115,8 @@ Contributions are welcome and encouraged, provided your code is of sufficient qu
 
 ### High Priority
 
-- **[Process]** Now, process switching is not using kernel stack switching.
-  Its current solution is similar to TSS, which needs to be changed to use kernel stack switching. [sched.c](./src/kernel/sched.c)
+- **[Process]** Implement process switching based on kernel stack switching. 
+  Now, process switching is similar to used TSS. [sched.c](./src/kernel/sched.c)
 - **[Memory]** A "General Protection" exception will appear if the DPL of the CS (code segment) and DS (data segment)
   in user space settings to 3. (The current DPL settings to 0) [gdt.c](./src/arch/x86_64/gdt.c)
 - **[Memory]** Implement paging algorithm on page fault. 
