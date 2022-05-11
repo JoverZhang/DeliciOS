@@ -29,8 +29,8 @@ static u16 frequency = 0;
 public void msleep(i32 ms) {
   u32 end = jiffies +  frequency * ms / 1000;
 
-  // TODO(jover): to be fix.
-  //  The time interrupt needs to occurs before the pause().
+  // TODO(jover): to be fixed.
+  //  The time interrupt needs to occur before the pause().
   //  I guess this bug will disappear when "switch_to()" is fixed.
   while (jiffies < end);
 

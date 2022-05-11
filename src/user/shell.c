@@ -37,10 +37,10 @@ static void load_banner() {
   console_clear();
 }
 
-// mock user program, it's written like the program on Linux.
+// Following is an example of a multiprocess program.
+// It's written like the program on Linux.
 //
-// this is an example of multiprocess program.
-// ps: the "fork()" is "system call" of create a child process in kernel.
+// ps: the "fork()" is a "system call" of create a child process in kernel.
 static noreturn void mock_user_program() {
   if (!fork()) {
     if (!fork()) {

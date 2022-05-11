@@ -62,14 +62,14 @@ PRIORITY_QUEUE(TaskQueue, TaskNode, NR_TASKS, task_node_cmp) task_queue;
   reg->r15 = (next)->ts.r15;        \
 } while (0)
 
-// This is a very simple scheduler function.
+// Following is a very simple scheduler function.
 // Its average time complexity is O(logN),
 // because it uses "little-endian heap" store tasks.
 public void schedule(Registers *reg) {
   Task *prev = current;
 
-  // first, increase vruntime of current process.
-  // then recalculate priority of processes.  ---  O(logN)
+  // first, increase the vruntime of the current process.
+  // then recalculate the priority of processes.  ---  O(logN)
   // like CFS (but just very little -_-)
   prev->vruntime += prev->static_prio;
   remove_at(&task_queue, current_node->index);

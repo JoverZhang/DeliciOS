@@ -22,7 +22,7 @@ Following the principle of "just for fun", I think it also needs the following f
 
 DeliciOS can be compiled on 64-bit Linux or MacOS.
 
-Run following command to build the `kernel.iso`. 
+Run following command to build the `kernel.iso`.
 
 ```shell
 make
@@ -55,10 +55,10 @@ Then you can see:
 code:
 
 ```c
-// mock user program, it's written like the program on Linux.
+// the mock user program it's written like the program on Linux.
 //
-// this is an example of multiprocess program.
-// ps: the "fork()" is "system call" of create a child process in kernel.
+// following is an example of a multiprocess program.
+// ps: the "fork()" is a "system call" of create a child process in kernel.
 static noreturn void mock_user_program() {
   if (!fork()) {
     if (!fork()) {

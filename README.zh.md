@@ -59,10 +59,10 @@ qemu-system-x86_64 ./dist/release/x86_64/kernel.iso
 代码:
 
 ```c
-// mock user program, it's written like the program on Linux.
+// the mock user program it's written like the program on Linux.
 //
-// this is an example of multiprocess program.
-// ps: the "fork()" is "system call" of create a child process in kernel.
+// following is an example of a multiprocess program.
+// ps: the "fork()" is a "system call" of create a child process in kernel.
 static noreturn void mock_user_program() {
   if (!fork()) {
     if (!fork()) {
