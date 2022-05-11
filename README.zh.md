@@ -105,6 +105,24 @@ i32 a = 10 / (get_cs() >> 30);
 
 ![division_by_zero_screen.png](./Documentation/resources/division_by_zero_screen.png)
 
+# Contributing
+
+非常欢迎高质量代码的贡献。
+
+## 问题汇总:
+
+### High Priority
+
+- **[Process]** 当前采用模拟传统 tss 切换的方式实现进程切换，待更改为使用内核栈切换。 [sched.c](./src/kernel/sched.c)
+- **[Memory]** 如果将用户态的 CS (代码段) 和 SS (栈段) 的 DPL 设置为 3，
+  则会出现 General Protection 异常。(当前 DPL = 0) [gdt.c](./src/arch/x86_64/gdt.c)
+- **[Memory]** 基于 Page Fault 实现分页算法，目前 虚拟地址 与 物理地址 是相等的。[page.c](./src/mm/page.c)
+
+### Low Priority
+
+- **[Console]** 使用守护进程来管理控制台。
+- **[Chore]** 将 x86 汇编改为 AT&T，并移除 nasm。
+
 # Future
 
 最终我希望能够支持早期版本的 Shell 和 GCC. (就像是一个现代的 Linux 0.01)

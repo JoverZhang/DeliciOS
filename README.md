@@ -107,6 +107,26 @@ console output:
 
 ![division_by_zero_screen.png](./Documentation/resources/division_by_zero_screen.png)
 
+# Contributing
+
+Contributions are welcome and encouraged, provided your code is of sufficient quality.
+
+## Issues:
+
+### High Priority
+
+- **[Process]** Now, process switching is not using kernel stack switching.
+  Its current solution is similar to TSS, which needs to be changed to use kernel stack switching. [sched.c](./src/kernel/sched.c)
+- **[Memory]** A "General Protection" exception will appear if the DPL of the CS (code segment) and DS (data segment)
+  in user space settings to 3. (The current DPL settings to 0) [gdt.c](./src/arch/x86_64/gdt.c)
+- **[Memory]** Implement paging algorithm on page fault. 
+  Now, the virtual address is equal to the physical address. [page.c](./src/mm/page.c)
+
+### Low Priority
+
+- **[Console]** Use the daemon process to control the console.
+- **[Chore]** Change the x86 assembly to AT&T and remove NASM.
+
 # Future
 
 I hope it can support earlier versions of Shell and GCC. (like a modern Linux 0.01)
