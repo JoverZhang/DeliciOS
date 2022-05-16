@@ -20,6 +20,22 @@ Following the principle of "just for fun", I think it also needs the following f
 
 # Building DeliciOS
 
+## Docker (development environment)
+
+### Run following command to compile and run DeliciOS in docker
+
+```shell
+docker run --name delicios --rm -it -v $PWD:/code delicios-env:0.1
+```
+
+### Stop DeliciOS container (because it can't shutdown by itself)
+
+```shell
+docker rm -f delicios-env
+```
+
+## Compile
+
 DeliciOS can be compiled on 64-bit Linux or MacOS.
 
 Run following command to build the `kernel.iso`.
