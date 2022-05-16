@@ -2,8 +2,8 @@
 ARCH	= arch/x86_64
 
 AS	 	= nasm 					# TODO: change to gas
-CC 		= x86_64-pc-linux-gnu-gcc
-LD 		= x86_64-elf-ld
+CC 		= x86_64-linux-gnu-gcc-11
+LD 		= x86_64-linux-gnu-ld
 GRUB 	= grub-mkrescue
 
 SRC 		= ./src
