@@ -25,7 +25,7 @@ Following the principle of "just for fun", I think it also needs the following f
 ### Run following command to compile and run DeliciOS in docker
 
 ```shell
-docker run --name delicios --rm -it -v $PWD:/code delicios-env:0.1
+docker run --name delicios --rm -it -v $PWD:/code joverzhang/delicios-env:0.1
 ```
 
 ### Stop DeliciOS container (because it can't shutdown by itself)

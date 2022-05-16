@@ -23,7 +23,7 @@ DeliciOS (谐音 "delicious") 是一个使用 C11 编写的简单的 64-bit 操�
 ### 运行以下命令，在 Docker 中编译和运行 DeliciOS
 
 ```shell
-docker run --name delicios --rm -it -v $PWD:/code delicios-env:0.1
+docker run --name delicios --rm -it -v $PWD:/code joverzhang/delicios-env:0.1
 ```
 
 ### 停止 DeliciOS 容器 (因为它还不能够自己关机)
