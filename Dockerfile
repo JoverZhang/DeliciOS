@@ -13,4 +13,3 @@ VOLUME /code
 WORKDIR /code
 
 CMD ["bash", "./docker/entrypoint.sh"]
-
